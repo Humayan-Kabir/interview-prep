@@ -38,7 +38,7 @@ public:
         	ptr->next->random = (ptr->random ? ptr->random->next: nullptr);
         	ptr = ptr->next->next;
         }
-        //extract original and duplicate list
+        //extract original and duplicate list;
         Node *oldListHead = head;
         Node *newListHead = head->next;
         Node *ansHead = newListHead;
