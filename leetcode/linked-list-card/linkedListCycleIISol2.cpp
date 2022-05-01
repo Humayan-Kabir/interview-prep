@@ -11,7 +11,7 @@ public:
     ListNode *detectCycle(ListNode *head) {
         ListNode *intersection = getIntersect(head);
         if (intersection == nullptr) return nullptr;
-        ListNode *ptr1 = head;
+        ListNode *ptr1 = intersection->next;
         ListNode *ptr2 = head;
         while(ptr1 != ptr2) {
         	ptr1 = ptr1->next;
