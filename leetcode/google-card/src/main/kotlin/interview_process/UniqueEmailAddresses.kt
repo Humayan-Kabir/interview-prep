@@ -1,4 +1,6 @@
-class Solution {
+package interview_process
+
+class UniqueEmailAddresses {
      fun numUniqueEmails(emails: Array<String>): Int {
         val hashSet = HashSet<String>()
         for (email in emails) {

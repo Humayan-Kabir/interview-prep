@@ -1,3 +1,5 @@
+package interview_process
+
 import java.util.TreeMap
 
 class OddEvenJump {
