@@ -1,5 +1,7 @@
 package interview_process
 
+import java.util.*
+
 class UniqueEmailAddresses {
      fun numUniqueEmails(emails: Array<String>): Int {
         val hashSet = HashSet<String>()
