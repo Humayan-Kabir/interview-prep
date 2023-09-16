@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int oddEvenJumps(vector<int>& arr) {
+        int n = arr.size();
+        map<int,int> mapping;
+        mapping[arr[n - 1]] = n - 1;
+        mapping[INT_MAX] = mapping[INT_MIN] = n;
+        // dp -> possible or not?
+        vector<vector<bool>> dp(n + 1, vector<bool>(2,0));
+        int ans = 1;
+        dp[n - 1] = {1, 1};
+        for(int i = arr.size() - 2; i >= 0; i--) {
+            auto it = mapping.lower_bound(arr[i]); // next greater or equal 
+            dp[i][0] = dp[it->second][1];
+            dp[i][1] = dp[it->first == arr[i] ? it->second : (--it)->second][0];
+            mapping[arr[i]] = i;
+            ans += dp[i][0];        
+        }
+        return ans;
+    }
+};
