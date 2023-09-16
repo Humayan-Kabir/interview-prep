@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int numUniqueEmails(vector<string>& emails) {
+        unordere_map<string,bool> hashMap;
+        for(string email: emails) {
+            string actual = "";
+            bool domain = false;
+            bool ignore = false; 
+            for(char ch: email) {
+                ignore |= (ch == '+');
+                domain |= (ch == '@');
+                if (domain || (!ignore && ch != '.')) acutal += ch;
+            }
+            hashMap[actual] = true;
+        }
+        return hashMap.size();      
+    }
+};
