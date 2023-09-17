@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string licenseKeyFormatting(string s, int k) {
+        string ans = "";
+        int len = 0;
+        for(char ch: s) {
+            len += (ch != '-');
+        }
+        int counter = len % k;
+        if (counter == 0) counter = k;
+        for(char ch: s) {
+            if (ch == '-') continue;
+            if (counter != 0) {
+                counter--;
+                ans.push_back(toupper(ch));
+            } else {
+                ans.push_back('-');
+                ans.push_back(toupper(ch));
+                counter = k - 1;
+            }
+        }   
+        return ans;
+    }
+};
