@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits) {
+        unordered_map<int,int> bucket;
+        int ans = 0;
+        for(int i = 0, l = 0; i < fruits.size(); i++) {
+            bucket[fruits[i]]++;
+            while(bucket.size() > 2) {
+                bucket[fruits[l]]--;
+                if (bucket[fruits[l]] == 0) {
+                    bucket.erase(bucket.find(fruits[l]));
+                }
+                l++;
+            }
+            ans = max(ans, i - l + 1); 
+        }
+        return ans;
+    }
+};
