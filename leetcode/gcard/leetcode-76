@@ -1,0 +1,23 @@
+class Solution {
+public:
+    string minWindow(string s, string t) {
+       unordered_map<char,int> countS;
+       unordered_map<char,int> countT;
+       for(char ch : t) countT[ch]++;
+       int matched = 0;
+       int need = countT.size();
+       pair<int,int> result = {INT_MAX, 0}; // start, len
+       for(int i = 0, l = 0; i < s.size(); i++) {
+            char ch = s[i];
+            countS[ch]++;
+            matched += (countS[ch] == countT[ch]);
+            if (matched == need) {
+                while(l < i && countS[s[l]] > countT[s[l]]) {
+                    countS[s[l++]]--; 
+                }
+                result = min(result, {i - l + 1, l});
+            }
+       }
+       return result.first == INT_MAX ? "" : s.substr(result.second, result.first);
+    }
+};
