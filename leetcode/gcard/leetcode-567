@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        unordered_map<char,int> freqA, freqB;
+        for(char ch : s1) freqA[ch]++;
+        int matched = 0;
+        int need = freqA.size();
+        for(int i = 0, l = 0; i < s2.length(); i++) {
+            char ch = s2[i];
+            freqB[ch]++;
+            if (freqA[ch] == freqB[ch]) {
+                matched++;
+            }
+            if (i >= s1.length()) {
+                if (freqA[s2[l]] == freqB[s2[l]]) {
+                    matched--;
+                }
+                freqB[s2[l++]]--;
+            }
+            if (matched == need) return true;
+        }
+        return false;       
+    }
+};
