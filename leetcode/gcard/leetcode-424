@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        unordered_map<char,int> freq;
+        int maxfreq = 0;
+        int result = 0;
+        auto check_condition = [&](int i, int j) -> bool {
+            return (j - i + 1 - maxfreq <= k);
+        };
+        for(int i = 0, l = 0; i < s.length(); i++) {
+            freq[s[i]]++;
+            maxfreq = max(freq[s[i]], maxfreq);
+            while(!check_condition(l, i)) {
+                freq[s[l++]]--;
+            }
+            result = max(result, i - l + 1);
+        }
+        return result;      
+    }
+};
