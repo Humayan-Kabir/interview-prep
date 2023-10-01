@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int expressiveWords(string s, vector<string>& words) {
+        vector<pair<char,int>> vt;
+        int cnt = 1;
+        char ch = s[0];
+        for(int i = 1; i < s.length(); i++) {
+            if (s[i] != ch) {
+                vt.push_back({ch, cnt});
+                cnt = 0; ch = s[i];
+            }
+            cnt++;
+        }
+        vt.push_back({ch, cnt});
+        auto check = [&](int pos, char ch, int cnt) -> bool {
+            if (pos >= vt.size() || vt[pos].first != ch || vt[pos].second < cnt || (cnt != vt[pos].second && vt[pos].second == 2)) {
+                return false;
+            }
+            return true;
+        };
+        int ans = 0;
+        for(string &word : words) {
+            cnt = 1;
+            ch = word[0];
+            int matched = 0;
+            int flag = true;
+            for(int i = 1; i < word.length(); i++) {
+                if (word[i] != ch) {
+                    if (!check(matched, ch, cnt)) {
+                        flag = false; 
+                        break;
+                    }                   
+                    cnt = 0;
+                    ch = word[i];
+                    matched++;
+                }
+                cnt++;
+            }
+            if (flag) flag = check(matched, ch, cnt) && matched == vt.size() - 1;
+            ans += flag;
+        }
+        return ans;      
+    }
+};
