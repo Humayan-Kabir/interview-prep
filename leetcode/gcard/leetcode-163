@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<vector<int>> findMissingRanges(vector<int>& nums, int lower, int upper) {
+        vector<vector<int>> ans;
+        int l = lower - 1;
+        for(int num : nums) {
+            if (num != l + 1) {
+                ans.push_back({l + 1, num - 1});
+            }
+            l = num;
+        }
+        if (l < upper) {
+            ans.push_back({l + 1, upper});
+        }
+        return ans;
+    }
+};
