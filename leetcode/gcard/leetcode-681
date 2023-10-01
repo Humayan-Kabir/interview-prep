@@ -1,0 +1,44 @@
+class Solution {
+private: 
+    string to_string_result(int h, int m) {
+        string hh = to_string(h);
+        string mm = to_string(m);
+        if (hh.length() < 2) hh = "0" + hh;
+        if (mm.length() < 2) mm = "0" + mm;
+        return hh + ":" + mm;
+    }
+public:
+    string nextClosestTime(string time) {
+        vector<int> digits;
+        for(char ch : time) {
+            if (isdigit(ch)) {
+                digits.push_back(ch - '0');
+            }
+        }
+        int hour = stoi(time.substr(0, 2));
+        int minute = stoi(time.substr(3, 2));
+        int greater_min = 60;
+        int lower_min = 60;
+        int greater_hour = 24;
+        int lower_hour = 24;
+        for(int i = 0; i < digits.size(); i++) {
+            for(int j = 0; j < digits.size(); j++) {
+                int cur_time = digits[i] * 10 + digits[j];
+                if (cur_time >= 60) continue;
+                if (cur_time > minute) greater_min = min(greater_min, cur_time);
+                lower_min = min(lower_min, cur_time);
+                if (cur_time >= 24) continue;
+                if (cur_time > hour) greater_hour = min(greater_hour, cur_time);
+                lower_hour = min(lower_hour, cur_time);
+            }
+        }
+        if (greater_min != 60) {
+            return to_string_result(hour, greater_min);
+        } else if(greater_hour != 24) {
+            return to_string_result(greater_hour, lower_min);
+        } else {
+            return to_string_result(lower_hour, lower_min);
+        }
+        return "";      
+    }
+};
