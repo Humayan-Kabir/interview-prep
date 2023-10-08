@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool backspaceCompare(string s, string t) {
+        int n = s.length() - 1;
+        int m = t.length() - 1;
+        while(n >= 0 || m >= 0) {
+            int counter = 0;
+            while(n >= 0 && (s[n] == '#' || counter > 0)) {
+                counter += (s[n--] == '#' ? 1 : -1);
+            }
+            counter = 0;
+            while(m >= 0 && (t[m] == '#' || counter > 0)) {
+                counter += (t[m--] == '#' ? 1 : -1);
+            }
+            if (n >= 0 && m >= 0 && s[n] != t[m]) {
+                return false;
+            }
+            if ((n >= 0) != (m >= 0)) {
+                return false;
+            }
+            n--; m--; 
+        } 
+        return true;  
+    }
+};
