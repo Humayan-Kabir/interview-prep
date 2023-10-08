@@ -1,0 +1,15 @@
+class Solution {
+public:
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+        sort(points.begin(), points.end(), [&](auto &point1, auto &point2) -> bool {
+            int dist1 = point1[0] * point1[0] + point1[1] * point1[1];
+            int dist2 = point2[0] * point2[0] + point2[1] * point2[1];
+            return dist1 < dist2;
+        }); 
+        vector<vector<int>> ans;
+        for(int i = 0; i < k; i++) {
+            ans.push_back(points[i]);
+        }
+        return ans;     
+    }
+};
