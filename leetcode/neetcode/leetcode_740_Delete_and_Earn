@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int deleteAndEarn(vector<int>& nums) {
+    	map<int,int> hashmap;
+    	for(int num : nums) {
+    		hashmap[num] += num;
+    	}
+    	int prev[2] = {0};
+    	for(auto& [key, value] : hashmap) {
+    		int current = 0;
+    		if (hashmap.find(key - 1) != hashmap.end()) {
+    			current = prev[0] + value;
+    		} else {
+    			current = prev[1] + value;
+    		}
+    		prev[0] = prev[1];
+    		prev[1] = max(prev[1], current);
+
+    	}
+    	return max(prev[0], prev[1]);    
+    }
+};  
